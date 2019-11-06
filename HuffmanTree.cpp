@@ -50,7 +50,7 @@ std::string HuffmanTree::compress(const std::string inputStr) {
         findCode(PQ.min(), codeMap, code);
     }
 
-    std::string output ="";
+    std::string output = "";
     for (auto i : inputStr) {
         output += codeMap[i];
     }
@@ -59,18 +59,29 @@ std::string HuffmanTree::compress(const std::string inputStr) {
 
 std::string HuffmanTree::serializeTree() const {
     if (root == nullptr) {
-        std::cout << "HELlO" << root->getFrequency() << std::endl;
         return "";
     }
 
     std::string output = "";
-    
-    std::cout << root->getFrequency() << std::endl;
-    
     serialize(root, output);
     return output;
 }
 
 std::string HuffmanTree::decompress(const std::string inputCode, const std::string serializedTree) {
+    std::string output = "";
 
+    HuffmanNode* curr = root;
+
+    for (auto character : inputCode) {
+        if (character == '0')
+            curr = curr->left;
+        else 
+            curr = curr->right;
+
+        if (curr->isLeaf()) {
+            output += curr->getCharacter();
+            curr = root;
+        }
+    }   
+    return output;
 }
