@@ -25,6 +25,7 @@ class HuffmanTree : HuffmanTreeBase {
 
         }
 
+        //recursive function to revursively serialize the Huffman Tree (done in postorder Traversal)
         void serialize(const HuffmanNode* node, std::string& outString) const {
             if (node == nullptr) 
                 return;

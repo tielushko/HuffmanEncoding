@@ -29,6 +29,7 @@ std::string HuffmanTree::compress(const std::string inputStr) {
         PQ.insert(node);
     }
 
+    //huffman tree creating from PQ
     while (PQ.size() != 1){
         HuffmanNode* node1 = PQ.min();
         PQ.removeMin();
@@ -41,22 +42,26 @@ std::string HuffmanTree::compress(const std::string inputStr) {
         PQ.insert(parentN1N2);
     }
 
+    //assign root private var.
     root = PQ.min();
-    //std::cout << root->getFrequency() << std::endl;
+
+    //encoding of each character in the string
+    //map for the Huffman Coding for each characters
     std::map<char, std::string> codeMap;
     std::string code = "";
+    std::string output = "";
 
     for (it = charMap.begin(); it != charMap.end(); ++it) {
         findCode(PQ.min(), codeMap, code);
     }
-
-    std::string output = "";
+    
     for (auto i : inputStr) {
         output += codeMap[i];
     }
    return output;
 }
 
+//tree serialization
 std::string HuffmanTree::serializeTree() const {
     if (root == nullptr) {
         return "";
@@ -67,6 +72,7 @@ std::string HuffmanTree::serializeTree() const {
     return output;
 }
 
+//tree decompression - get the text that was initially encoded by using Huffman Coding
 std::string HuffmanTree::decompress(const std::string inputCode, const std::string serializedTree) {
     std::string output = "";
     size_t len = serializedTree.length();
@@ -91,17 +97,19 @@ std::string HuffmanTree::decompress(const std::string inputCode, const std::stri
         } 
     }
 
+    //copy the remained stack to be the root of the newly constructed Huffman Tree & clean up.
     HuffmanNode* root = treeStack.top();
     treeStack.pop();
 
+    //reconstructing the text from the code using the built huffman tree
     HuffmanNode* curr = root;
-
     for (auto character : inputCode) {
         if (character == '0')
             curr = curr->left;
         else 
             curr = curr->right;
 
+        //once hit the leaf, this is the full character, add the char to output, start over from the root.
         if (curr->isLeaf()) {
             output += curr->getCharacter();
             curr = root;

@@ -5,6 +5,14 @@ int main() {
     HuffmanTree t;
     std::string compressed, serialized, decompress;
     /*
+    compressed = t.compress("sdss ");
+    std::cout << compressed << std::endl;
+    serialized = t.serializeTree();
+    std::cout << serialized << std::endl;
+    */
+
+    std::cout << t.decompress(wikipediaCode, wikipediaTree) << std::endl;
+    /*
     //turing compress test
     std::string compressed = t.compress(turing);
     std::cout << compressed << std::endl;
@@ -59,7 +67,7 @@ int main() {
     if (wikipedia == decompress)
         std::cout << "yay" << std::endl;
     */
-    
+    /*
     //constitution compress values
     compressed = t.compress(constitution);
     std::cout << compressed << std::endl;
@@ -71,12 +79,14 @@ int main() {
     std::cout << serialized << std::endl;
     if (constitutionTree == serialized)
         std::cout << "yay" << std::endl;
- 
+    */
+
     //constitution decompress test
-    decompress = t.decompress(compressed, serialized);
+    /*
+    decompress = t.decompress(constitutionCode, constitutionTree);
     std::cout << decompress << std::endl;
     if (constitution == decompress)
         std::cout << "yay" << std::endl;
-    
+    */
     return 0;
 }
