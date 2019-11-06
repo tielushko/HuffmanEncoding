@@ -9,7 +9,6 @@ class HuffmanTree : HuffmanTreeBase {
     private:
         size_t n;
         HuffmanNode* root;
-       // HeapQueue<HuffmanNode*, HuffmanNode::Compare> PQ; // root node 
     public:
         std::string compress(const std::string inputStr) override;
         std::string serializeTree() const override;
@@ -39,20 +38,6 @@ class HuffmanTree : HuffmanTreeBase {
                 outString += "B";
         }
 
-            /*if (node->isLeaf() == true) {
-                return code;
-            }*/
-            //if (node->isLeaf()) 
-            //    return code;
-            //else if(node->left != nullptr) 
-            //if (node->left != nullptr) {
-            //    std::cout << "coding left ";
-            //return preOrderCoding(node->left, code + "0");
-            //} else if (node->right != nullptr) {
-            //   std::cout << "coding right ";
-            //else {
-            //    return preOrderCoding(node->right, code + "1");
-            //}
 };
 
 #endif /*HUFFMANTREE_HPP*/
