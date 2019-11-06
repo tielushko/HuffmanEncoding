@@ -3,7 +3,7 @@
 #include "HeapQueue.hpp"
 #include <map>
 #include <iostream>
-
+#include <stack>
 
 std::string HuffmanTree::compress(const std::string inputStr) {
     std::map<char, size_t> charMap;
@@ -69,6 +69,30 @@ std::string HuffmanTree::serializeTree() const {
 
 std::string HuffmanTree::decompress(const std::string inputCode, const std::string serializedTree) {
     std::string output = "";
+    size_t len = serializedTree.length();
+    std::stack<HuffmanNode*> treeStack;
+   
+    //reconstruct the tree from serializedTree
+    for(auto character : serializedTree) {
+        if (character == 'L') {
+            continue;
+        } else if ((character != 'L') && (character != 'B')) {
+            HuffmanNode* huffNode = new HuffmanNode(character, 0);
+            treeStack.push(huffNode);        
+        } else if (character == 'B') {
+            HuffmanNode* right = treeStack.top();
+            treeStack.pop();
+            HuffmanNode* left = treeStack.top();
+            treeStack.pop();
+            HuffmanNode* branch = new HuffmanNode('\0', 0, nullptr, left, right);
+            treeStack.push(branch);
+            right->parent = branch;
+            left->parent = branch;
+        } 
+    }
+
+    HuffmanNode* root = treeStack.top();
+    treeStack.pop();
 
     HuffmanNode* curr = root;
 
